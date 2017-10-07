@@ -1,0 +1,51 @@
+.font-size-2 {
+    font-size: 1.5em;
+}
+
+.font-size-1 {
+    font-size: 1.2em;
+}
+
+.font-size-sm {
+    font-size: 0.5em;
+}
+
+.help-text {
+    font-size: 13px;
+    color: #777;
+    padding-top: 10px;
+}
+
+.redirect {
+    margin-top: 5px;
+}
+
+.profile {
+    margin: 8px;
+    font-size: 1.5em;
+    color: #999;
+}
+
+.profile-right {
+    text-align: right;
+}
+
+.img-pic {
+    max-width: 60%;
+}
+
+.entry-meta {
+    text-align: center;
+    color: #777;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.post-category::after,
+.post-date::after,
+.post-author::after,
+.comments-link::after,
+.views-count::after {
+    content: ' ·';
+    color: #000;
+}

@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+请完成个人信息填写
+{% endblock %}
+
+{% block body %}
+<h2>请先完成<a href="{% url 'profile_edit' %}">个人信息</a>填写</h2>
+{% endblock %}

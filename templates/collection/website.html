@@ -1,0 +1,64 @@
+{% extends 'collection/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+CS知识学习网站收集
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>
+            CS知识学习网站收集
+        </h1>
+        {% if cat_name %}
+        <h2><span class="label label-default">{{ cat_name }}</span></h2>
+        {% elif user.is_authenticated %}
+            <a href="{% url 'collection:add_website' %}" class="btn btn-default" role="button">添加网站</a>
+        {% endif %}
+    </div>
+    {% if web_list %}
+    <div class="font-size-1">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        类型
+                    </th>
+                    <th>
+                        介绍
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for web in web_list %}
+                <tr>
+                    <td>
+                        <a href="{{ web.url }}">{{ web.title }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'collection:cat_web' web.category.slug %}">{{ web.category.name }}</a>
+                    </td>
+                    <td>
+                        {{ web.describe }}
+                    </td>
+                    {% if profile and web in profile.collections.all %}
+                    <td>
+                        <span class="label label-default">已收藏</span>
+                    </td>
+                    {% elif profile %}
+                    <td class="collected">
+                        <button type="button" class="btn btn-xs btn-primary" data-colid="{{ web.pk }}">收藏</button>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p>尚无网页收集内容</p>
+    {% endif %}
+{% endblock %}

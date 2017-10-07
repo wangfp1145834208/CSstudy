@@ -1,0 +1,63 @@
+{% extends 'article/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+知识总结与心得
+{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1>
+            {% if person %}
+            {{ user }}的文章
+            {% elif username %}
+            {{ username }}的文章
+            {% else %}
+            知识总结与心得
+            {% endif %}
+        </h1>
+        {% if cat_name %}
+            <h2><span class="label label-default">{{ cat_name }}</span></h2>
+        {% elif person %}
+            <a href="{% url 'article:post_add' %}" class="btn btn-default" role="button">文章写作</a>
+        {% endif %}
+    </div>
+
+    {% if post_list %}
+    {% for post in post_list %}
+    <div class="col-md-12">
+        <h3 class="text-center text-header">
+            {{ post.title }}
+        </h3>
+        <div class="entry-meta">
+            <span class="post-author">
+                <a href="{% url 'article:post_author' post.auth.username %}">{{ post.auth.username }}</a>
+            </span>
+            <span class="post-category">
+                <a href="{% url 'article:cat_post' post.category.slug %}">{{ post.category.name }}</a>
+            </span>
+            <span class="post-date">
+                {{ post.created_time }} 创作
+            </span>
+            <span class="views-count">
+                {{ post.views }} 阅读
+            </span>
+            <span class="likes-count">
+                {{ post.likes }} 喜欢
+            </span>
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+            <p class="font-size-1">
+                {{ post.excerpt }}
+            </p>
+            <p>
+                <a href="{% url 'article:post_detail' post.pk %}">查看更多 »</a>
+            </p>
+        </div>
+
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>暂无发表的文章</p>
+    {% endif %}
+{% endblock %}

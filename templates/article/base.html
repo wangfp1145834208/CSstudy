@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load main_template_tags %}
+
+{% block sidebar %}
+    {% get_category_list 'article' %}
+{% endblock %}

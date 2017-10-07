@@ -1,0 +1,66 @@
+{% extends 'article/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    {{ post.title }}
+{% endblock %}
+
+{% block body %}
+{% if success %}
+<div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  文章修改成功！
+</div>
+{% endif %}
+<div class="col-md-12">
+    <div class="page-header">
+        <h1 class="text-center text-header">
+            {{ post.title }}
+        </h1>
+    </div>
+        <div class="entry-meta">
+            <span class="post-author">
+                <a href="{% url 'article:post_person' %}">{{ post.auth.username }}</a>
+            </span>
+            <span class="post-category">
+                {{ post.category.name }}
+            </span>
+            <span class="post-date">
+                {{ post.created_time }} 创作
+            </span>
+            <span class="views-count">
+                {{ post.views }} 阅读
+            </span>
+            <span class="likes-count">
+                {{ post.likes }} 喜欢
+            </span>
+        </div>
+    <div class="col-md-10 col-md-offset-1">
+        <p class="text-left">
+            {{ post.body|safe }}
+        </p>
+        <hr />
+    </div>
+
+    {% if post.auth == user %}
+    <div class="col-md-2 col-md-offset-1">
+        <a href="{% url 'article:post_edit' post.id %}" class="btn btn-primary btn-block" role="button">修改文章</a>
+    </div>
+    <div class="col-md-2 col-md-offset-6">
+        <a href="{% url 'article:post_delete' post.id %}" class="btn btn-warning btn-block" role="button">删除文章</a>
+    </div>
+    {% elif liked %}
+    <div class="col-md-2 col-md-offset-1">
+        <button class="btn btn-default btn-block" id="like-cancel" data-postid="{{ post.id }}" type="button">
+            取消喜欢 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        </button>
+    </div>
+    {% elif user.is_authenticated and profiled %}
+    <div class="col-md-2 col-md-offset-1">
+        <button class="btn btn-default btn-block" id="likes" data-postid="{{ post.id }}" type="button">
+            喜欢 <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+        </button>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

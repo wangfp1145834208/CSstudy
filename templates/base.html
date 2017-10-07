@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head lang="zh">
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet">
+    <!--<link href="http://www.bootcss.com/p/layoutit/css/layoutit.css" rel="stylesheet">-->
+    <!--<link href="{% static '/css/bootstrap.min.css' %}" rel="stylesheet">-->
+    <link href="{% static '/css/layoutit.css' %}" rel="stylesheet">
+	<link href="{% static '/css/my.css' %}" rel="stylesheet">
+	<link href="{% static '/css/highlights/borland.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<ul class="nav nav-tabs font-size-1">
+				<li>
+					<a href="{% url 'index' %}">首页</a>
+				</li>
+				<li>
+					<a href="{% url 'article:posts' %}">记录</a>
+				</li>
+				<li>
+					<a href="{% url 'collection:websites' %}">点滴</a>
+				</li>
+				{% if user.is_authenticated %}
+				<li class="pull-right">
+					<a href="{% url 'logout' %}?next={% url 'article:posts' %}">退出登录</a>
+				</li>
+				<li class="pull-right dropdown">
+					<a href="#" data-toggle="dropdown" class="dropdown-toggle">您好，{{ user.username }}<strong class="caret"></strong></a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url 'article:post_person' %}">个人文章</a>
+						</li>
+						<li>
+							<a href="{% url 'article:post_add' %}">文章写作</a>
+						</li>
+						<li>
+							<a href="{% url 'collection:add_website' %}">添加网站</a>
+						</li>
+						<li>
+							<a href="{% url 'add_category' %}">添加分类</a>
+						</li>
+						<li class="divider"></li>
+						<li>
+							<a href="{% url 'profile_show' %}">个人信息</a>
+						</li>
+						<li>
+							<a href="{% url 'password_change' %}">修改密码</a>
+						</li>
+					</ul>
+				</li>
+				{% else %}
+				<li class="pull-right">
+					<a href="{% url 'register' %}">注册</a>
+				</li>
+				<li class="pull-right">
+					<a href="{% url 'login' %}?next={% url 'index' %}">登录</a>
+					<ul class="dropdown-menu">
+						<li>
+							<a href="{% url 'add_category' %}">添加分类</a>
+						</li>
+						<li>
+							<a href="{% url 'article:post_add' %}">写作文章</a>
+						</li>
+						<li>
+							<a href="{% url 'collection:add_website' %}">增加收集</a>
+						</li>
+						<li class="divider">
+						</li>
+						<li>
+							<a href="#">分割线</a>
+						</li>
+					</ul>
+				</li>
+				{% endif %}
+			</ul>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-9">
+			{% block body %}
+            {% endblock %}
+		</div>
+		<div class="col-md-3 sidebar">
+			{% block sidebar %}
+			{% endblock %}
+		</div>
+	</div>
+</div>
+
+<script src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://www.bootcss.com/p/layoutit/js/bootstrap.min.js"></script>
+<script src="{% static 'js/my_jquery.js' %}"></script>
+<script src="{% static 'js/my_ajax.js' %}"></script>
+<!--<script src="http://www.bootcss.com/p/layoutit/js/jquery-ui.js"></script>-->
+<!--<script src="http://www.bootcss.com/p/layoutit/js/jquery.ui.touch-punch.min.js"></script>-->
+<!--<script src="http://www.bootcss.com/p/layoutit/js/jquery.htmlClean.js"></script>-->
+<!--<script src="http://www.bootcss.com/p/layoutit/ckeditor/ckeditor.js"></script>-->
+<!--<script src="http://www.bootcss.com/p/layoutit/ckeditor/config.js"></script>-->
+<!--<script src="http://www.bootcss.com/p/layoutit/js/scripts.js"></script>-->
+<!--<script src="{% static '/js/jquery.min.js' %}"></script>-->
+<!--<script src="{% static '/js/bootstrap.min.js' %}"></script>-->
+
+</body>
+</html>

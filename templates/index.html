@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+	首页
+{% endblock %}
+
+{% block body %}
+<div class="jumbotron">
+    <h1>学以致用</h1>
+</div>
+<div class="page-header">
+    <h2>知识总结与心得</h2>
+</div>
+{% if post_list %}
+<div class="row">
+    {% for post in post_list %}
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <h4 class="text-center">
+                {{ post.title }}
+            </h4>
+            <p class="text-center">
+                <a href="{% url 'article:post_author' post.auth.username %}">作者：{{ post.auth }}</a>
+            </p>
+            <p>
+                {{ post.excerpt }}
+            </p>
+            <p>
+                <a href="{% url 'article:post_detail' post.pk %}">查看更多 »</a>
+            </p>
+            <a href="{% url 'article:cat_post' post.category.slug %}">
+                <span class="label label-primary">{{ post.category.name }}</span>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<p>尚未编辑文章</p>
+{% endif %}
+
+<hr />
+<p class="text-right"><a href="{% url 'article:posts' %}">查看更多 »</a></p>
+
+<div class="page-header">
+    <h2>CS知识学习网站收集</h2>
+</div>
+{% if web_list %}
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        标题
+                    </th>
+                    <th>
+                        类型
+                    </th>
+                    <th>
+                        介绍
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for web in web_list %}
+                <tr>
+                    <td>
+                        <a href="{{ web.url }}">{{ web.title }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'collection:cat_web' web.category.slug %}">{{ web.category.name }}</a>
+                    </td>
+                    <td>
+                        {{ web.describe }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<p class="text-right"><a href="{% url 'collection:websites' %}">查看更多 »</a></p>
+{% else %}
+<p>尚未收集到网站</p>
+{% endif %}
+
+{% endblock %}
+
+{% block sidebar %}
+    <div class="page-header"><h4>分类</h4></div>
+    {% if cat_list %}
+    <ul>
+        {% for cat in cat_list %}
+        <li>
+            {{ cat.name }}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>尚未添加分类</p>
+    {% endif %}
+
+    <div class="page-header"><h4>标签</h4></div>
+    {% if tag_list %}
+        {% for tag in tag_list %}
+        <span class="label label-info">{{ tag.name }}</span>
+        {% endfor %}
+    {% else %}
+    <p>尚未添加标签</p>
+    {% endif %}
+{% endblock %}

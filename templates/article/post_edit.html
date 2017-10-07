@@ -1,0 +1,50 @@
+{% extends 'article/base.html' %}
+{% load staticfiles %}
+
+{% block title %}
+    写文章
+{% endblock %}
+
+{% block body %}
+<h1>请在此处修改您的文章：</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-12">
+        <form role="form" action="{% url 'article:post_edit' post.id %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.title.errors }}
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                <span class="text-info">{{ form.title.help_text|safe }}</span>
+            </div>
+            <div class="form-group">
+                {{ form.excerpt.errors }}
+                {{ form.excerpt.label_tag }}
+                {{ form.excerpt }}
+                <span class="text-info">{{ form.excerpt.help_text|safe }}</span>
+            </div>
+            <div class="form-group row">
+                {{ form.mark_down.errors }}
+                <label for="{{ form.category.id_for_label }}" class="col-md-2">{{ form.mark_down.label }}</label>
+                <div class="col-md-1">{{ form.mark_down }}</div>
+                <span class="text-info">{{ mark_down.excerpt.help_text|safe }}</span>
+            </div>
+            <div class="form-group">
+                {{ form.body.errors }}
+                {{ form.body.label_tag }}
+                {{ form.body }}
+                <span class="text-info">{{ form.body.help_text|safe }}</span>
+            </div>
+            <div class="form-group row">
+                {{ form.category.errors }}
+                <label for="{{ form.category.id_for_label }}" class="col-md-1">{{ form.category.label }}</label>
+                <div class="col-md-4">{{ form.category }}</div>
+                <span class="text-info">{{ form.category.help_text|safe }}</span>
+            </div>
+            <button class="btn btn-primary" type="submit" name="submit">提交修改</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
