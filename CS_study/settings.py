@@ -29,7 +29,7 @@ SECRET_KEY = '-e1iq^*e#4l&-3hkoy7$uvhzbo!4o)^1-om^62l1_1-a!1!q@-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.wangfp.site']
 
 
 # Application definition
