@@ -27,7 +27,7 @@ MEDIA_DIR = os.path.join(BASE_DIR, 'media')
 SECRET_KEY = '-e1iq^*e#4l&-3hkoy7$uvhzbo!4o)^1-om^62l1_1-a!1!q@-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.wangfp.site']
 
@@ -127,6 +127,7 @@ USE_TZ = True
 
 STATICFILES_DIRS = [STATIC_DIR]
 STATIC_URL = '/static/'
+STATIC_ROOT = STATIC_DIR
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
